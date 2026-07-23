@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Contact Us</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            text-align: center;
+        }
+
+        .box {
+            width: 500px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        h1 {
+            color: darkblue;
+        }
+
+        p {
+            font-size: 18px;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+            background: green;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+        <h1>Contact Us</h1>
+
+        <p><b>Shop Name:</b> Sajid Online Shop</p>
+        <p><b>Owner:</b> Sajid Khan</p>
+        <p><b>Phone:</b> +92XXXXXXXXXX</p>
+        <p><b>Email:</b> your@email.com</p>
+        <p><b>Address:</b> Pakistan</p>
+
+        <br>
+
+        <a href="{% url 'home' %}">⬅ Back to Home</a>
+    </div>
+
+</body>
+
+</html>

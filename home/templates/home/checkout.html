@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Checkout</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+        }
+
+        .box {
+            width: 450px;
+            margin: 40px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        h1 {
+            text-align: center;
+            color: darkblue;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid gray;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            background: green;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: darkgreen;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="box">
+
+        <h1>🛒 Checkout</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <input type="text" name="customer_name" placeholder="Your Name" required>
+
+            <input type="text" name="phone" placeholder="Phone Number" required>
+
+            <textarea name="address" placeholder="Address" required></textarea>
+
+            <select name="payment_method" required>
+                <option value="">Select Payment Method</option>
+                <option value="Cash on Delivery">Cash on Delivery</option>
+                <option value="JazzCash">JazzCash</option>
+                <option value="Easypaisa">Easypaisa</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+            </select>
+
+            <button type="submit">Place Order</button>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>

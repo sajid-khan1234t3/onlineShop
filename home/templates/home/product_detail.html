@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{ product.name }} - Sajid Online Shop</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            margin: 0;
+        }
+
+        .navbar {
+            background: darkblue;
+            color: white;
+            padding: 15px 30px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        .product-box {
+            background: white;
+            width: 450px;
+            margin: 50px auto;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px #aaa;
+            text-align: center;
+        }
+
+        .product-box img {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        h1 {
+            color: darkblue;
+        }
+
+        .price {
+            color: green;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .description {
+            color: #555;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+
+        .cart-btn {
+            background: green;
+        }
+
+        .cart-btn:hover {
+            background: darkgreen;
+        }
+
+        .wish-btn {
+            background: crimson;
+        }
+
+        .wish-btn:hover {
+            background: darkred;
+        }
+
+        .back-btn {
+            background: darkblue;
+        }
+
+        .back-btn:hover {
+            background: navy;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="navbar">
+
+        <a href="{% url 'home' %}">🏠 Home</a>
+
+        <a href="{% url 'cart' %}">🛒 Cart</a>
+
+        <a href="{% url 'wishlist' %}">❤️ Wishlist</a>
+
+        <a href="{% url 'orders' %}">📦 My Orders</a>
+
+    </div>
+
+
+    <div class="product-box">
+
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+
+        <h1>{{ product.name }}</h1>
+
+        <p class="price">
+            Price: Rs {{ product.price }}
+        </p>
+
+        <p class="description">
+            {{ product.description }}
+        </p>
+
+
+        <!-- Add to Cart -->
+
+        <a href="{% url 'add_to_cart' product.id %}">
+            <button class="cart-btn">
+                🛒 Add to Cart
+            </button>
+        </a>
+
+
+        <!-- Add to Wishlist -->
+
+        <a href="{% url 'add_to_wishlist' product.id %}">
+            <button class="wish-btn">
+                ❤️ Add to Wishlist
+            </button>
+        </a>
+
+
+        <br>
+
+
+        <!-- Back to Products -->
+
+        <a href="{% url 'home' %}">
+            <button class="back-btn">
+                🔙 Back to Products
+            </button>
+        </a>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Shopping Cart - Sajid Online Shop</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .navbar {
+            background: darkblue;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        .navbar a:hover {
+            color: yellow;
+        }
+
+        h1 {
+            text-align: center;
+            color: darkblue;
+        }
+
+        .cart-box {
+            width: 90%;
+            max-width: 900px;
+            margin: 30px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px #aaa;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border-bottom: 1px solid #ddd;
+            padding: 15px;
+            text-align: center;
+        }
+
+        th {
+            background: darkblue;
+            color: white;
+        }
+
+        .quantity {
+            font-size: 18px;
+        }
+
+        .quantity a {
+            text-decoration: none;
+            font-size: 20px;
+            margin: 0 10px;
+        }
+
+        .remove-btn {
+            background: crimson;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .remove-btn:hover {
+            background: darkred;
+        }
+
+        .total {
+            text-align: right;
+            color: green;
+            margin-top: 20px;
+        }
+
+        .checkout-btn {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 12px;
+            background: orange;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .checkout-btn:hover {
+            background: darkorange;
+        }
+
+        .continue-btn {
+            display: block;
+            text-align: center;
+            color: darkblue;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+
+        .empty {
+            text-align: center;
+            color: #555;
+            padding: 30px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="navbar">
+
+        <a href="{% url 'home' %}">🏠 Home</a>
+
+        <a href="{% url 'cart' %}">🛒 Cart</a>
+
+        <a href="{% url 'wishlist' %}">❤️ Wishlist</a>
+
+        <a href="{% url 'orders' %}">📦 My Orders</a>
+
+    </div>
+
+
+    <h1>🛒 Shopping Cart</h1>
+
+
+    <div class="cart-box">
+
+        {% if items %}
+
+        <table>
+
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Action</th>
+            </tr>
+
+
+            {% for item in items %}
+
+            <tr>
+
+                <td>
+                    {{ item.product.name }}
+                </td>
+
+                <td>
+                    Rs {{ item.product.price }}
+                </td>
+
+                <td class="quantity">
+
+                    <a href="{% url 'minus' item.id %}">
+                        ➖
+                    </a>
+
+                    {{ item.quantity }}
+
+                    <a href="{% url 'plus' item.id %}">
+                        ➕
+                    </a>
+
+                </td>
+
+                <td>
+                    <b>Rs {{ item.total_price }}</b>
+                </td>
+
+                <td>
+
+                    <a href="{% url 'remove_from_cart' item.id %}">
+
+                        <button class="remove-btn">
+                            🗑️ Remove
+                        </button>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+
+        <h2 class="total">
+            Total Bill: Rs {{ total }}
+        </h2>
+
+
+        <a class="checkout-btn" href="{% url 'checkout' %}">
+            💳 Proceed to Checkout
+        </a>
+
+
+        <a class="continue-btn" href="{% url 'home' %}">
+            🔙 Continue Shopping
+        </a>
+
+
+        {% else %}
+
+        <div class="empty">
+
+            <h2>
+                🛒 Your Cart is Empty
+            </h2>
+
+            <p>
+                Add some products to your cart.
+            </p>
+
+            <a class="continue-btn" href="{% url 'home' %}">
+                🛍️ Start Shopping
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</body>
+
+</html>

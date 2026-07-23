@@ -1,0 +1,282 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sajid Online Shop</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            margin: 0;
+        }
+
+        .navbar {
+            background: darkblue;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .search input {
+            padding: 8px;
+            width: 250px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .search button {
+            padding: 8px 15px;
+            background: orange;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .menu a:hover {
+            color: yellow;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+            color: darkblue;
+        }
+
+        .products {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            width: 220px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, .2);
+            text-align: center;
+        }
+
+        .card img {
+            width: 170px;
+            height: 170px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .buy-btn {
+            background: green;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .buy-btn:hover {
+            background: darkgreen;
+        }
+
+        .wish-btn {
+            background: crimson;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .wish-btn:hover {
+            background: darkred;
+        }
+
+        .card h3 a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .card h3 a:hover {
+            color: darkblue;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+
+        <div class="logo">
+            🛒 Sajid Online Shop
+        </div>
+
+        <div class="search">
+
+            <form method="GET" action="{% url 'home' %}">
+
+                <input type="text" name="search" placeholder="Search Products..." value="{{ request.GET.search }}">
+
+                <button type="submit">
+                    Search
+                </button>
+
+            </form>
+
+        </div>
+
+        <div class="menu">
+
+            <a href="{% url 'home' %}">
+                Home
+            </a>
+
+            <a href="{% url 'home' %}">
+                Products
+            </a>
+
+            <a href="{% url 'cart' %}">
+                🛒 Cart
+            </a>
+
+            <a href="{% url 'wishlist' %}">
+                ❤️ Wishlist
+            </a>
+
+            <a href="{% url 'orders' %}">
+                📦 My Orders
+            </a>
+
+            <a href="{% url 'contact' %}">
+                Contact
+            </a>
+
+            <a href="{% url 'signup' %}">
+                Sign Up
+            </a>
+
+            <a href="{% url 'login' %}">
+                Login
+            </a>
+
+            <a href="{% url 'profile' %}">
+                Profile
+            </a>
+
+            <a href="{% url 'logout' %}">
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <h1>
+        Welcome to Sajid Online Shop
+    </h1>
+
+    <h2>
+        Our Products
+    </h2>
+
+
+    <div class="products">
+
+        {% for product in products %}
+
+        <div class="card">
+
+            <!-- Product Image -> Product Details -->
+
+            <a href="{% url 'product_detail' product.id %}">
+
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+
+            </a>
+
+
+            <!-- Product Name -> Product Details -->
+
+            <h3>
+
+                <a href="{% url 'product_detail' product.id %}">
+
+                    {{ product.name }}
+
+                </a>
+
+            </h3>
+
+
+            <p>
+                <b>Price:</b> Rs {{ product.price }}
+            </p>
+
+
+            <p>
+                {{ product.description }}
+            </p>
+
+
+            <!-- Add to Cart -->
+
+            <a href="{% url 'add_to_cart' product.id %}">
+
+                <button class="buy-btn">
+
+                    🛒 Add to Cart
+
+                </button>
+
+            </a>
+
+
+            <br>
+            <br>
+
+
+            <!-- Add to Wishlist -->
+
+            <a href="{% url 'add_to_wishlist' product.id %}">
+
+                <button class="wish-btn">
+
+                    ❤️ Wishlist
+
+                </button>
+
+            </a>
+
+        </div>
+
+        {% empty %}
+
+        <h2>
+            No Products Found
+        </h2>
+
+        {% endfor %}
+
+    </div>
+
+</body>
+
+</html>

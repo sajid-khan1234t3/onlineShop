@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Orders - Sajid Online Shop</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .navbar {
+            background: darkblue;
+            padding: 15px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        .navbar a:hover {
+            color: yellow;
+        }
+
+        .box {
+            width: 90%;
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        h1 {
+            text-align: center;
+            color: darkblue;
+        }
+
+        .order {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            background: #fafafa;
+        }
+
+        .order h3 {
+            color: darkblue;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .order p {
+            margin: 10px 0;
+        }
+
+        .pending {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .processing {
+            color: blue;
+            font-weight: bold;
+        }
+
+        .shipped {
+            color: purple;
+            font-weight: bold;
+        }
+
+        .delivered {
+            color: green;
+            font-weight: bold;
+        }
+
+        .cancelled {
+            color: red;
+            font-weight: bold;
+        }
+
+        .track {
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .shop-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: darkblue;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .shop-btn:hover {
+            background: blue;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <div class="navbar">
+
+        <a href="{% url 'home' %}">
+            🏠 Home
+        </a>
+
+        <a href="{% url 'cart' %}">
+            🛒 Cart
+        </a>
+
+        <a href="{% url 'wishlist' %}">
+            ❤️ Wishlist
+        </a>
+
+        <a href="{% url 'orders' %}">
+            📦 My Orders
+        </a>
+
+    </div>
+
+
+    <div class="box">
+
+        <h1>📦 My Orders</h1>
+
+
+        {% if orders %}
+
+
+        {% for order in orders %}
+
+        <div class="order">
+
+            <h3>
+                🧾 Order #{{ order.id }}
+            </h3>
+
+
+            <p>
+                <b>Product:</b>
+                {{ order.product.name }}
+            </p>
+
+
+            <p>
+                <b>Price:</b>
+                Rs {{ order.product.price }}
+            </p>
+
+
+            <p>
+                <b>Quantity:</b>
+                {{ order.quantity }}
+            </p>
+
+
+            <p>
+                <b>Customer Name:</b>
+                {{ order.customer_name }}
+            </p>
+
+
+            <p>
+                <b>Phone:</b>
+                {{ order.phone }}
+            </p>
+
+
+            <p>
+                <b>Address:</b>
+                {{ order.address }}
+            </p>
+
+
+            <p>
+                <b>Payment:</b>
+                {{ order.payment_method }}
+            </p>
+
+
+            {% if order.status == "Pending" %}
+
+            <p class="pending">
+                <b>Status:</b> 🟠 Pending
+            </p>
+
+            {% elif order.status == "Processing" %}
+
+            <p class="processing">
+                <b>Status:</b> 🔵 Processing
+            </p>
+
+            {% elif order.status == "Shipped" %}
+
+            <p class="shipped">
+                <b>Status:</b> 🟣 Shipped
+            </p>
+
+            {% elif order.status == "Delivered" %}
+
+            <p class="delivered">
+                <b>Status:</b> 🟢 Delivered
+            </p>
+
+            {% elif order.status == "Cancelled" %}
+
+            <p class="cancelled">
+                <b>Status:</b> 🔴 Cancelled
+            </p>
+
+            {% endif %}
+
+
+            <div class="track">
+
+                📦 Pending
+                ➜
+                ⚙️ Processing
+                ➜
+                🚚 Shipped
+                ➜
+                🎉 Delivered
+
+            </div>
+
+        </div>
+
+
+        {% endfor %}
+
+
+        {% else %}
+
+
+        <div class="empty">
+
+            <h2>
+                📦 No Orders Found
+            </h2>
+
+            <p>
+                You have not placed any order yet.
+            </p>
+
+            <a class="shop-btn" href="{% url 'home' %}">
+                🛍️ Start Shopping
+            </a>
+
+        </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+</body>
+
+</html>
