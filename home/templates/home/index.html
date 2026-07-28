@@ -1,66 +1,87 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Sajid Online Shop</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: Arial;
             background: #f2f2f2;
-            margin: 0;
         }
 
         .navbar {
             background: darkblue;
             color: white;
+            padding: 15px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .nav-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 30px;
             flex-wrap: wrap;
+            gap: 10px;
         }
 
         .logo {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: bold;
+        }
+
+        .search form {
+            display: flex;
+            gap: 5px;
+            flex: 1;
+            max-width: 400px;
         }
 
         .search input {
             padding: 8px;
-            width: 250px;
+            width: 100%;
             border: none;
             border-radius: 5px;
         }
 
         .search button {
-            
             padding: 8px 15px;
             background: orange;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            box-sizing: border-box;
+            white-space: nowrap;
         }
 
         .menu {
             display: flex;
             flex-wrap: wrap;
-            gap: 15px;
-            text-align: center;
+            gap: 12px;
+            justify-content: center;
         }
 
         .menu a {
             color: white;
             text-decoration: none;
+            font-size: 14px;
+            padding: 5px 8px;
+            border-radius: 4px;
         }
 
         .menu a:hover {
+            background: rgba(255, 255, 255, 0.2);
             color: yellow;
         }
 
@@ -68,39 +89,72 @@
         h2 {
             text-align: center;
             color: darkblue;
+            margin: 20px 0 10px;
         }
 
         .products {
-            display: flex;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 20px;
-            flex-wrap: wrap;
             padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .card {
             background: white;
-            width: 220px;
-            padding: 20px;
+            padding: 15px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, .2);
             text-align: center;
+            display: flex;
+            flex-direction: column;
         }
 
         .card img {
-            width: 170px;
-            height: 170px;
+            width: 100%;
+            height: 200px;
             object-fit: cover;
             border-radius: 10px;
+            margin-bottom: 10px;
         }
 
-        .buy-btn {
-            background: green;
-            color: white;
+        .card h3 {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        .card h3 a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #555;
+            flex-grow: 1;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .buy-btn,
+        .wish-btn {
             padding: 10px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            width: 100%;
+            font-size: 15px;
+            color: white;
+        }
+
+        .buy-btn {
+            background: green;
         }
 
         .buy-btn:hover {
@@ -109,189 +163,108 @@
 
         .wish-btn {
             background: crimson;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
         }
 
         .wish-btn:hover {
             background: darkred;
         }
 
-        .card h3 a {
-            text-decoration: none;
-            color: black;
-        }
-
-        .card h3 a:hover {
-            color: darkblue;
-        }
-
-        /* Mobile Responsive */
-
-        @media screen and (max-width:768px) {
-
+        /* Laptop - Bara screen */
+        @media screen and (min-width: 769px) {
             .navbar {
-                flex-direction: column;
-                text-align: center;
-                padding: 10px;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
             }
 
-            .logo {
-                font-size: 22px;
-                margin-bottom: 10px;
-            }
-
-            .search {
-                width: 100%;
-                margin-bottom: 10px;
-            }
-
-            .search input {
-                width: 90%;
+            .nav-top {
+                width: auto;
             }
 
             .menu {
-                justify-content: center;
-                gap: 10px;
+                justify-content: flex-end;
+            }
+        }
+
+        /* Mobile - Chota screen */
+        @media screen and (max-width:768px) {
+            .logo {
+                font-size: 20px;
+            }
+
+            .search form {
+                width: 100%;
+            }
+
+            .menu {
+                gap: 8px;
             }
 
             .menu a {
-                font-size: 14px;
-            }
-
-            h1 {
-                font-size: 28px;
-            }
-
-            h2 {
-                font-size: 22px;
+                font-size: 13px;
             }
 
             .products {
                 padding: 10px;
-            }
-
-            .card {
-                width: 95%;
-                max-width: 340px;
+                grid-template-columns: 1fr;
             }
 
             .card img {
-                width: 100%;
                 height: 250px;
             }
-
         }
     </style>
 
 </head>
+
 <body>
 
     <div class="navbar">
-
-        <div class="logo">
-            🛒 Sajid Online Shop
-        </div>
-
-        <div class="search">
-
-            <form method="GET" action="{% url 'home' %}">
-
-                <input type="text" name="search" placeholder="Search Products..." value="{{ request.GET.search }}">
-
-                <button type="submit">
-                    Search
-                </button>
-
-            </form>
-
+        <div class="nav-top">
+            <div class="logo">🛒 Sajid Online Shop</div>
+            <div class="search">
+                <form method="GET" action="{% url 'home' %}">
+                    <input type="text" name="search" placeholder="Search Products..." value="{{ request.GET.search }}">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
         </div>
 
         <div class="menu">
-
             <a href="{% url 'home' %}">Home</a>
-
             <a href="{% url 'home' %}">Products</a>
-
             <a href="{% url 'cart' %}">🛒 Cart</a>
-
             <a href="{% url 'wishlist' %}">❤️ Wishlist</a>
-
-            <a href="{% url 'orders' %}">📦 My Orders</a>
-
+            <a href="{% url 'orders' %}">📦 Orders</a>
             <a href="{% url 'contact' %}">Contact</a>
-
-            <a href="{% url 'signup' %}">Sign Up</a>
-
-            <a href="{% url 'login' %}">Login</a>
-
             <a href="{% url 'profile' %}">Profile</a>
-
             <a href="{% url 'logout' %}">Logout</a>
-
         </div>
-
     </div>
 
-    <h1>
-        Welcome to Sajid Online Shop
-    </h1>
-
-    <h2>
-        Our Products
-    </h2>
+    <h1>Welcome to Sajid Online Shop</h1>
+    <h2>Our Products</h2>
 
     <div class="products">
-
         {% for product in products %}
-
         <div class="card">
-
             <a href="{% url 'product_detail' product.id %}">
                 <img src="{{ product.image.url }}" alt="{{ product.name }}">
             </a>
+            <h3><a href="{% url 'product_detail' product.id %}">{{ product.name }}</a></h3>
+            <p><b>Price:</b> Rs {{ product.price }}</p>
+            <p>{{ product.description|truncatewords:12 }}</p>
 
-            <h3>
-                <a href="{% url 'product_detail' product.id %}">
-                    {{ product.name }}
-                </a>
-            </h3>
-
-            <p>
-                <b>Price:</b> Rs {{ product.price }}
-            </p>
-
-            <p>
-                {{ product.description }}
-            </p>
-
-            <a href="{% url 'add_to_cart' product.id %}">
-                <button class="buy-btn">
-                    🛒 Add to Cart
-                </button>
-            </a>
-
-            <br><br>
-
-            <a href="{% url 'add_to_wishlist' product.id %}">
-                <button class="wish-btn">
-                    ❤️ Wishlist
-                </button>
-            </a>
-
+            <div class="btn-group">
+                <a href="{% url 'add_to_cart' product.id %}"><button class="buy-btn">🛒 Add to Cart</button></a>
+                <a href="{% url 'add_to_wishlist' product.id %}"><button class="wish-btn">❤️ Wishlist</button></a>
+            </div>
         </div>
-
         {% empty %}
-
-        <h2>No Products Found</h2>
+        <h2 style="grid-column: 1/-1;">No Products Found</h2>
         {% endfor %}
-        
-        </div>
-        
-        </body>
-        
-        </html>
+    </div>
+
+</body>
+
+</html>
